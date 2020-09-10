@@ -16,5 +16,9 @@
     "scraper"
   ],
   "author": "Michal Kulesza",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "puppeteer": "^5.2.1"
+  }
 }
