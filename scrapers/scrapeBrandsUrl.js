@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-const scrapeBrands = async pageURL => {
+const scrapeBrandsUrl = async pageURL => {
 	const browser = await puppeteer.launch({
 		headless: true,
 		args: ["--no-sandbox"],
@@ -9,20 +9,17 @@ const scrapeBrands = async pageURL => {
 
 	try {
 		await page.goto(pageURL);
-		const brands = await page.evaluate(() => {
+		const urls = await page.evaluate(() => {
 			let arr = [];
 
 			const nodes = document.querySelectorAll(".nduList > p > a");
 			nodes.forEach(brand => {
-				arr.push({
-					name: brand.innerText.replace("\n", ""),
-					url: brand.href,
-				});
+				arr.push(brand.href);
 			});
 			return arr;
 		});
 
-		return brands;
+		return urls;
 	} catch (error) {
 		console.log(error);
 	}
@@ -30,4 +27,4 @@ const scrapeBrands = async pageURL => {
 	browser.close();
 };
 
-module.exports = scrapeBrands;
+module.exports = scrapeBrandsUrl;
