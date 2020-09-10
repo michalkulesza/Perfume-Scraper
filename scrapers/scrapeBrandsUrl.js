@@ -2,13 +2,17 @@ const puppeteer = require("puppeteer");
 
 const scrapeBrandsUrl = async pageURL => {
 	const browser = await puppeteer.launch({
-		headless: true,
+		headless: false,
 		args: ["--no-sandbox"],
 	});
 	const page = await browser.newPage();
 
 	try {
-		await page.goto(pageURL);
+		await page.goto(pageURL, {
+			waitUntil: "networkidle0",
+		});
+		await page.waitForSelector(".nduList");
+
 		const urls = await page.evaluate(() => {
 			let arr = [];
 
@@ -22,9 +26,9 @@ const scrapeBrandsUrl = async pageURL => {
 		return urls;
 	} catch (error) {
 		console.log(error);
+	} finally {
+		await browser.close();
 	}
-
-	browser.close();
 };
 
 module.exports = scrapeBrandsUrl;
