@@ -22,8 +22,8 @@ ref: "Perfume"
 name: String,
 description: String,
 sex: String,
+year: Number,
 rating: mongoose.Types.Decimal128,
-votes: Number,
 pictures: [ String ]
 notes: [
 top_notes: [ String ],

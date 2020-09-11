@@ -7,7 +7,7 @@ const stringRequired = {
 };
 
 const brandSchema = new Schema({
-	name: stringRequired,
+	name: { type: String, required: true, unique: true },
 	description: stringRequired,
 	country: stringRequired,
 	url: stringRequired,
